@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from './components/Header';
 import Dashboard from './components/Dashboard';
 import TransactionList from './components/TransactionList';
@@ -8,24 +8,56 @@ import './styles/App.css';
 
 function App() {
   const [transactions, setTransactions] = useState([]);
-  const [currency, setCurrency] = useState('$'); // Default currency is $
+  const [currency, setCurrency] = useState('$');
+  const [editTransaction, setEditTransaction] = useState(null); // For editing transactions
 
+  // Load transactions from localStorage when the component mounts
+  useEffect(() => {
+    const storedTransactions = JSON.parse(localStorage.getItem('transactions'));
+    if (storedTransactions) {
+      setTransactions(storedTransactions);
+    }
+  }, []);
+
+  // Save transactions to localStorage whenever the transactions state changes
+  useEffect(() => {
+    localStorage.setItem('transactions', JSON.stringify(transactions));
+  }, [transactions]);
+
+  // Add or update a transaction
   const addTransaction = (transaction) => {
-    setTransactions([...transactions, { ...transaction, id: Date.now() }]);
+    if (editTransaction) {
+      // Update the existing transaction
+      setTransactions(
+        transactions.map((t) =>
+          t.id === editTransaction.id ? { ...transaction, id: t.id } : t
+        )
+      );
+      setEditTransaction(null); // Clear the edit mode
+    } else {
+      setTransactions([...transactions, { ...transaction, id: Date.now() }]);
+    }
   };
 
+  // Delete a transaction
   const deleteTransaction = (id) => {
     setTransactions(transactions.filter((transaction) => transaction.id !== id));
   };
 
+  // Start editing a transaction
+  const startEditTransaction = (id) => {
+    const transactionToEdit = transactions.find((transaction) => transaction.id === id);
+    setEditTransaction(transactionToEdit);
+  };
+
+  // Handle currency change
   const handleCurrencyChange = (e) => {
-    setCurrency(e.target.value); // Update the currency based on the user's selection
+    setCurrency(e.target.value);
   };
 
   return (
     <div className="App">
       <Header />
-      {/* Currency Selector */}
       <div className="currency-selector">
         <label>Select Currency:</label>
         <select value={currency} onChange={handleCurrencyChange}>
@@ -36,8 +68,17 @@ function App() {
         </select>
       </div>
       <Dashboard transactions={transactions} currency={currency} />
-      <AddTransaction addTransaction={addTransaction} currency={currency} />
-      <TransactionList transactions={transactions} deleteTransaction={deleteTransaction} currency={currency} />
+      <AddTransaction
+        addTransaction={addTransaction}
+        editTransaction={editTransaction}
+        currency={currency}
+      />
+      <TransactionList
+        transactions={transactions}
+        deleteTransaction={deleteTransaction}
+        editTransaction={startEditTransaction}
+        currency={currency}
+      />
       <Footer />
     </div>
   );

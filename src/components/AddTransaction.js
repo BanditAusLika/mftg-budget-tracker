@@ -1,9 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-function AddTransaction({ addTransaction, currency }) {
+function AddTransaction({ addTransaction, editTransaction, currency }) {
   const [name, setName] = useState('');
   const [amount, setAmount] = useState('');
   const [type, setType] = useState('income');
+
+  // Prefill the form when editing a transaction
+  useEffect(() => {
+    if (editTransaction) {
+      setName(editTransaction.name);
+      setAmount(editTransaction.amount);
+      setType(editTransaction.type);
+    } else {
+      // Clear form fields when no edit is happening
+      setName('');
+      setAmount('');
+      setType('income');
+    }
+  }, [editTransaction]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -13,7 +27,7 @@ function AddTransaction({ addTransaction, currency }) {
       type,
     };
     addTransaction(transaction);
-    setName('');
+    setName(''); // Clear the form after adding/updating
     setAmount('');
     setType('income');
   };
@@ -41,7 +55,9 @@ function AddTransaction({ addTransaction, currency }) {
         <option value="income">Income</option>
         <option value="expense">Expense</option>
       </select>
-      <button type="submit">Add Transaction</button>
+      <button type="submit">
+        {editTransaction ? 'Update Transaction' : 'Add Transaction'}
+      </button>
     </form>
   );
 }
