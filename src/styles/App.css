@@ -1,0 +1,222 @@
+/* Apply Orbitron font globally */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%; /* Ensures the body takes up full height of the viewport */
+}
+
+body {
+  font-family: 'Orbitron', sans-serif;
+  background-color: #121212;
+  color: #00ffff;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; /* Center content horizontally */
+}
+
+.App {
+  flex: 1; /* Ensures that the content takes the remaining height */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; /* Center content horizontally */
+  width: 100%;
+  max-width: 1200px;
+  padding: 20px;
+  text-align: center;
+}
+
+/* Header */
+.app-header {
+  font-size: 3rem;
+  color: #00ffff;
+  text-shadow: 0px 0px 10px cyan;
+  margin-bottom: 40px;
+}
+
+/* Dashboard */
+.dashboard {
+  background-color: #222;
+  border-radius: 10px;
+  box-shadow: 0px 0px 20px rgba(0, 255, 255, 0.5);
+  padding: 20px;
+  width: 100%;
+  max-width: 600px;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+/* Currency selector */
+.currency-selector {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #00ffff;
+}
+
+.currency-selector label {
+  margin-right: 10px;
+}
+
+.currency-selector select {
+  padding: 10px;
+  background-color: #333;
+  color: #00ffff;
+  border: none;
+  border-radius: 5px;
+}
+
+/* Balance section */
+.balance {
+  font-size: 2.5rem;
+  color: lime;
+  text-shadow: 0px 0px 10px lime;
+  margin-bottom: 20px;
+}
+
+.summary {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.summary div {
+  padding: 1rem;
+  font-size: 1.2rem;
+}
+
+/* Transaction form */
+.add-transaction-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #1e1e1e;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 20px rgba(0, 255, 255, 0.3);
+  width: 100%;
+  max-width: 600px;
+  margin-bottom: 30px;
+}
+
+.add-transaction-form input,
+.add-transaction-form select {
+  width: 100%;
+  max-width: 400px;
+  padding: 10px;
+  margin: 10px;
+  background-color: #333;
+  color: #00ffff;
+  border: none;
+  border-radius: 5px;
+}
+
+.add-transaction-form button {
+  padding: 10px 20px;
+  background-color: #00ffff;
+  color: #121212;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.add-transaction-form button:hover {
+  transform: scale(1.1);
+}
+
+/* Transaction list */
+.transaction-list {
+  margin-top: 30px;
+  padding: 20px;
+  background-color: #1e1e1e;
+  border-radius: 10px;
+  box-shadow: 0px 0px 20px rgba(0, 255, 255, 0.3);
+  width: 100%;
+  max-width: 600px;
+}
+
+.transaction-list h3 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #00ffff;
+  text-shadow: 0px 0px 5px cyan;
+}
+
+.transaction-list ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.transaction-list li {
+  font-size: 1.2rem;
+  padding: 15px;
+  background-color: #222;
+  color: #00ffff;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.transaction-list li button {
+  margin-left: 10px;
+  padding: 5px 10px;
+  background-color: #ff4500;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.transaction-list li button:hover {
+  background-color: #ff6347;
+}
+
+/* Footer */
+.footer {
+  width: 100%;
+  text-align: center;
+  padding: 1rem;
+  background-color: transparent;
+  color: #ff4500;
+  font-size: 1.2rem;
+  text-shadow: 0 0 10px #ff4500, 0 0 20px #ff6347, 0 0 30px #ff8c00, 0 0 40px #ffd700;
+  position: relative;
+  left: 0;
+  right: 0;
+}
+
+.footer a {
+  text-decoration: none;
+  color: #ff4500;
+}
+
+.footer a:hover {
+  color: #ffd700;
+  text-shadow: 0 0 15px #ffd700, 0 0 25px #ff8c00, 0 0 35px #ff4500;
+}
+
+/* Responsive adjustments for small screens */
+@media (max-width: 768px) {
+  .dashboard,
+  .add-transaction-form,
+  .transaction-list {
+    width: 90%;
+  }
+  
+  .balance {
+    font-size: 2rem;
+  }
+}
